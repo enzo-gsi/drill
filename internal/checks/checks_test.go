@@ -165,3 +165,18 @@ func TestPassfFailf(t *testing.T) {
 		t.Errorf("failf: %+v", r)
 	}
 }
+
+func TestHasSQLiteHeader(t *testing.T) {
+	root := t.TempDir()
+	testutil.CreateSQLite(t, filepath.Join(root, "db"))
+	testutil.WriteFiles(t, root, map[string]string{"tiny": "x", "empty": ""})
+	if !hasSQLiteHeader(filepath.Join(root, "db")) {
+		t.Error("real database rejected")
+	}
+	for _, name := range []string{"tiny", "empty", "missing"} {
+		if hasSQLiteHeader(filepath.Join(root, name)) {
+			t.Errorf("%s accepted as SQLite", name)
+		}
+	}
+	expect(t, SQLiteIntegrity(context.Background(), root, "empty"), Fail, "not a SQLite database")
+}

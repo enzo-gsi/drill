@@ -285,8 +285,11 @@ func FormatDuration(d time.Duration) string {
 
 // cleanRelPath ensures p is relative and cannot escape the restore root.
 func cleanRelPath(p string) (string, error) {
-	p = filepath.ToSlash(p)
-	if path.IsAbs(p) || filepath.IsAbs(p) || filepath.VolumeName(p) != "" {
+	// Configs may be written on Windows and run on Linux, so normalise
+	// backslashes and reject drive letters on every OS.
+	p = strings.ReplaceAll(p, `\`, "/")
+	hasDrive := len(p) >= 2 && p[1] == ':'
+	if path.IsAbs(p) || filepath.IsAbs(p) || hasDrive {
 		return "", fmt.Errorf("path %q must be relative to the backed-up directory", p)
 	}
 	c := path.Clean(p)

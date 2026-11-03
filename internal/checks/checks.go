@@ -5,6 +5,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"io"
 	"io/fs"
 	"net/url"
 	"os"
@@ -97,6 +98,10 @@ func SQLiteIntegrity(ctx context.Context, root, rel string) Result {
 	if !st.Mode().IsRegular() {
 		return failf("%s is not a regular file", rel)
 	}
+	// SQLite treats empty or tiny files as empty databases, so check the header first.
+	if !hasSQLiteHeader(p) {
+		return failf("%s is not a SQLite database (missing \"SQLite format 3\" header)", rel)
+	}
 	db, err := sql.Open("sqlite", sqliteDSN(p))
 	if err != nil {
 		return failf("%s: cannot open: %v", rel, err)
@@ -183,6 +188,18 @@ func FormatSize(n int64) string {
 		exp++
 	}
 	return fmt.Sprintf("%.1f %cB", float64(n)/float64(div), "KMGTPE"[exp])
+}
+
+// hasSQLiteHeader reports whether the file starts with the SQLite magic string.
+func hasSQLiteHeader(p string) bool {
+	f, err := os.Open(p)
+	if err != nil {
+		return false
+	}
+	defer f.Close()
+	buf := make([]byte, 16)
+	_, err = io.ReadFull(f, buf)
+	return err == nil && string(buf) == "SQLite format 3\x00"
 }
 
 // sqliteDSN builds a read-only SQLite URI for an absolute path.
