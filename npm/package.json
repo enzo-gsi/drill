@@ -1,0 +1,26 @@
+{
+  "name": "drill-restic",
+  "version": "0.1.0",
+  "description": "Your backups say 'success'. Prove it. Verifies restic backups by restoring and checking them.",
+  "keywords": ["restic", "backup", "restore", "verify", "self-hosted", "homelab", "disaster-recovery", "cli"],
+  "homepage": "https://github.com/enzo-gsi/drill",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enzo-gsi/drill.git"
+  },
+  "bugs": "https://github.com/enzo-gsi/drill/issues",
+  "license": "MIT",
+  "bin": {
+    "drill": "bin/drill.js"
+  },
+  "scripts": {
+    "postinstall": "node install.js",
+    "test": "node --test"
+  },
+  "files": ["bin/", "install.js", "README.md"],
+  "engines": {
+    "node": ">=18"
+  },
+  "os": ["linux", "darwin", "win32"],
+  "cpu": ["x64", "arm64"]
+}

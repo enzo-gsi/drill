@@ -3,3 +3,7 @@
 /dist/
 .*.state.json
 .claude/settings.local.json
+npm/bin/drill
+npm/bin/drill.exe
+npm/node_modules/
+*.tgz

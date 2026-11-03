@@ -42,5 +42,9 @@ jobs:
       - name: go test
         run: go test ./...
 
+      - name: npm wrapper tests
+        working-directory: npm
+        run: npm test
+
       - name: demo
         run: DEMO_PAUSE=0 bash scripts/demo.sh

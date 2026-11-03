@@ -1,5 +1,10 @@
 # drill
 
+[![ci](https://github.com/enzo-gsi/drill/actions/workflows/ci.yml/badge.svg)](https://github.com/enzo-gsi/drill/actions/workflows/ci.yml)
+[![release](https://img.shields.io/github/v/release/enzo-gsi/drill)](https://github.com/enzo-gsi/drill/releases/latest)
+[![npm](https://img.shields.io/npm/v/drill-restic)](https://www.npmjs.com/package/drill-restic)
+[![license](https://img.shields.io/github/license/enzo-gsi/drill)](LICENSE)
+
 **Your backups say 'success'. Prove it.**
 
 drill restores the latest [restic](https://restic.net) snapshot into a temp dir, runs checks on what came back, and tells you, with an exit code, whether you could actually recover from it. It catches the backups that "succeed" every night while quietly saving a corrupted database, an empty folder, or nothing at all since March.
@@ -8,11 +13,11 @@ drill restores the latest [restic](https://restic.net) snapshot into a temp dir,
 
 ## Install
 
-```bash
-go install github.com/enzo-gsi/drill/cmd/drill@latest
-```
+drill needs restic 0.17+ on your `PATH`. Then pick one:
 
-Requires Go 1.26+ to build and restic 0.17+ on `PATH`.
+- **Prebuilt binary** for Linux, macOS or Windows (amd64/arm64) from the [latest release](https://github.com/enzo-gsi/drill/releases/latest).
+- **npm**: `npm install -g drill-restic` (or `npx drill-restic run`). It downloads the release binary and verifies its checksum.
+- **Go 1.26+**: `go install github.com/enzo-gsi/drill/cmd/drill@latest`
 
 ## Quickstart
 
