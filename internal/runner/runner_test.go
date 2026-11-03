@@ -98,8 +98,8 @@ func TestRunTargetPass(t *testing.T) {
 func TestRunTargetSnapshotError(t *testing.T) {
 	fb := &fakeBackend{snapErr: &restic.Error{Op: "snapshots", Code: 12, Msg: "wrong password or no key found"}}
 	got := newRunner(t, fb).RunTarget(context.Background(), target)
-	want := []checks.Status{checks.Fail, checks.Skip, checks.Skip, checks.Skip}
-	if got.Status != checks.Fail || !equal(statuses(got.Checks), want) || got.Snapshot != nil {
+	want := []checks.Status{checks.Fail, checks.Skip, checks.Skip, checks.Skip, checks.Skip}
+	if got.Status != checks.Fail || !equal(statuses(got.Checks), want) || got.Snapshot != nil || got.Checks[1].Name != CheckRestore {
 		t.Fatalf("got %+v", got)
 	}
 	if fb.restoredTo != "" {

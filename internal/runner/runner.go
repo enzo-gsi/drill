@@ -72,6 +72,7 @@ func (r Runner) RunTarget(ctx context.Context, t config.Target) (out report.Targ
 	snap, err := b.LatestSnapshot(ctx)
 	if err != nil {
 		out.Checks = append(out.Checks, implicit(CheckSnapshot, checks.Fail, err.Error(), step))
+		out.Checks = append(out.Checks, report.Check{Name: CheckRestore, Status: checks.Skip, Message: "not run: no snapshot to restore"})
 		out.Checks = append(out.Checks, skipped(t.Checks, "no snapshot to check")...)
 		return out
 	}

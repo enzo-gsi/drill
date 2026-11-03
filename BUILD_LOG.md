@@ -6,6 +6,7 @@
 - [x] 3. Checks: max_age, exists, sqlite_integrity, min_files, each with tests.
 - [x] 4. Runner, terminal and JSON reports, exit codes, state file, `drill list`.
 - [x] 5. Webhook notification on failure, tested against httptest.Server.
+- [x] 6. End-to-end failure tests (`cmd/drill/failures_test.go`): corrupted SQLite, missing file, old snapshot, recent snapshot only under another tag, no snapshots, wrong password, missing repo, config errors (exit 2). They also check that restore dirs are deleted, that no password appears in output, and that the repository is not modified.
 
 ## Decisions
 - Module path is `github.com/enzog/drill` (placeholder until the real GitHub repo exists).
