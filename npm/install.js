@@ -41,6 +41,11 @@ function expectedChecksum(checksums, name) {
   throw new Error(`${name} is not listed in checksums.txt`);
 }
 
+function tarCommand(platform = process.platform, env = process.env) {
+  if (platform === "win32") return path.join(env.SystemRoot || "C:\\Windows", "System32", "tar.exe");
+  return "tar";
+}
+
 async function download(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`download failed: ${url} answered ${res.status}`);
@@ -62,8 +67,9 @@ async function install() {
   try {
     const file = path.join(tmp, name);
     fs.writeFileSync(file, archive);
-    // bsdtar (macOS, Windows 10+) and GNU tar both handle .tar.gz; bsdtar also handles .zip.
-    execFileSync("tar", ["-xf", file, "-C", tmp], { stdio: "ignore" });
+    // bsdtar (macOS, Windows 10+) and GNU tar both handle .tar.gz; only bsdtar
+    // handles .zip, so on Windows use the system one, not a GNU tar from Git Bash.
+    execFileSync(tarCommand(), ["-xf", file, "-C", tmp], { stdio: "ignore" });
     fs.mkdirSync(BIN_DIR, { recursive: true });
     fs.copyFileSync(path.join(tmp, t.exe), binaryPath(t));
     fs.chmodSync(binaryPath(t), 0o755);
@@ -72,7 +78,7 @@ async function install() {
   }
 }
 
-module.exports = { target, archiveName, binaryPath, expectedChecksum, install };
+module.exports = { target, archiveName, binaryPath, expectedChecksum, tarCommand, install };
 
 if (require.main === module) {
   install().catch((err) => {

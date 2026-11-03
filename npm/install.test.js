@@ -2,7 +2,12 @@
 
 const test = require("node:test");
 const assert = require("node:assert");
-const { target, archiveName, expectedChecksum } = require("./install.js");
+const { target, archiveName, expectedChecksum, tarCommand } = require("./install.js");
+
+test("tarCommand uses the Windows system tar", () => {
+  assert.strictEqual(tarCommand("linux", {}), "tar");
+  assert.match(tarCommand("win32", { SystemRoot: "D:\\Win" }), /^D:\\Win[\\/]System32[\\/]tar\.exe$/);
+});
 
 test("target maps Node platforms to release assets", () => {
   assert.deepStrictEqual(target("linux", "x64"), { goos: "linux", goarch: "amd64", ext: "tar.gz", exe: "drill" });
