@@ -1,5 +1,5 @@
 /drill
 /drill.exe
 /dist/
-.drill-state.json
+.*.state.json
 .claude/settings.local.json

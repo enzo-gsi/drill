@@ -24,6 +24,7 @@ type Status string
 const (
 	Pass Status = "pass"
 	Fail Status = "fail"
+	Skip Status = "skip" // not run because an earlier step failed
 )
 
 // Result is the outcome of one check.
