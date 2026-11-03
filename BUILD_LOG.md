@@ -5,6 +5,7 @@
 - [x] 2. restic backend: latest snapshot and restore to a temp dir, with integration tests on throwaway repos.
 - [x] 3. Checks: max_age, exists, sqlite_integrity, min_files, each with tests.
 - [x] 4. Runner, terminal and JSON reports, exit codes, state file, `drill list`.
+- [x] 5. Webhook notification on failure, tested against httptest.Server.
 
 ## Decisions
 - Module path is `github.com/enzog/drill` (placeholder until the real GitHub repo exists).
@@ -33,6 +34,8 @@
 - `drill init` refuses to overwrite and returns exit 2. `drill list` always exits 0.
 - Colour is used only when stdout is a terminal, and never when `NO_COLOR` is set or `TERM=dumb`.
 - JSON output has `schema_version: 1`; `snapshot` is `null` when no snapshot was found.
+- One webhook POST per failed target, with a 10s timeout. Payload: `tool`, `target`, `status`, `snapshot_id`, `failed_checks` (name + message). A `Title` header is set so ntfy shows a readable title.
+- A webhook failure is printed as a warning and does not change the exit code (the drill result is what matters).
 
 ## Known limitations
 

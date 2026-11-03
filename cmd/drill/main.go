@@ -8,6 +8,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"os/signal"
 	"strings"
@@ -15,6 +16,7 @@ import (
 
 	"github.com/enzog/drill/internal/checks"
 	"github.com/enzog/drill/internal/config"
+	"github.com/enzog/drill/internal/notify"
 	"github.com/enzog/drill/internal/report"
 	"github.com/enzog/drill/internal/runner"
 	"github.com/enzog/drill/internal/state"
@@ -158,6 +160,16 @@ func cmdRun(ctx context.Context, opts options, names []string, stdout, stderr io
 	}
 	if err := state.Save(statePath, st); err != nil {
 		fmt.Fprintf(stderr, "drill: warning: %v\n", err)
+	}
+	if cfg.Notify.Webhook != "" {
+		for _, t := range rep.Targets {
+			if t.Status == checks.Pass {
+				continue
+			}
+			if err := notify.Send(ctx, http.DefaultClient, cfg.Notify.Webhook, notify.PayloadFor(t)); err != nil {
+				fmt.Fprintf(stderr, "drill: warning: notifying failure of %s: %v\n", t.Name, err)
+			}
+		}
 	}
 
 	if opts.json {
