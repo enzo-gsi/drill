@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/enzog/drill/internal/checks"
+	"github.com/enzo-gsi/drill/internal/checks"
 )
 
 func TestCreateAndCorrupt(t *testing.T) {

@@ -14,12 +14,12 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/enzog/drill/internal/checks"
-	"github.com/enzog/drill/internal/config"
-	"github.com/enzog/drill/internal/notify"
-	"github.com/enzog/drill/internal/report"
-	"github.com/enzog/drill/internal/runner"
-	"github.com/enzog/drill/internal/state"
+	"github.com/enzo-gsi/drill/internal/checks"
+	"github.com/enzo-gsi/drill/internal/config"
+	"github.com/enzo-gsi/drill/internal/notify"
+	"github.com/enzo-gsi/drill/internal/report"
+	"github.com/enzo-gsi/drill/internal/runner"
+	"github.com/enzo-gsi/drill/internal/state"
 )
 
 // Exit codes.

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/enzog/drill/internal/testutil"
+	"github.com/enzo-gsi/drill/internal/testutil"
 )
 
 // isolateTemp points the temp dir at a fresh directory so tests can verify

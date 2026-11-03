@@ -12,7 +12,7 @@
 Definition of done, checked on Windows 11 with Go 1.27.3 and restic 0.19.1: `gofmt -l .` prints nothing, `go vet ./...` and `go test ./...` pass (integration tests ran, none skipped), and `scripts/demo.sh` runs end to end (first drill passes, second fails with exit 1).
 
 ## Decisions
-- Module path is `github.com/enzog/drill` (placeholder until the real GitHub repo exists).
+- Module path is `github.com/enzo-gsi/drill`.
 - `go.mod` says `go 1.26.0`, not 1.22: current `modernc.org/sqlite` requires Go 1.26.
 - YAML parsing uses `gopkg.in/yaml.v3` (the standard library has no YAML parser). Unknown fields are rejected so typos surface as errors.
 - `max_age` accepts Go durations (`26h`, `90m`) plus a `d` suffix for days (`7d`).
@@ -56,7 +56,7 @@ Definition of done, checked on Windows 11 with Go 1.27.3 and restic 0.19.1: `gof
 - One target at a time; no parallelism.
 
 ## What to do next
-1. Create the GitHub repository, update the module path in `go.mod`, imports and README if it is not `github.com/enzog/drill`, and check that CI passes.
+1. Create the GitHub repository, update the module path in `go.mod`, imports and README if it is not `github.com/enzo-gsi/drill`, and check that CI passes.
 2. Record the demo GIF with `bash scripts/demo.sh` (on Linux/macOS for colour) and add it to the README.
 3. Try drill on a real but non-critical restic repository (sftp or rest-server) before pointing it at important backups.
 4. Consider a restic version check with a clear error for versions older than 0.17.

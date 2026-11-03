@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/enzog/drill/internal/checks"
-	"github.com/enzog/drill/internal/report"
+	"github.com/enzo-gsi/drill/internal/checks"
+	"github.com/enzo-gsi/drill/internal/report"
 )
 
 // State is the content of the state file.

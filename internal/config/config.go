@@ -312,7 +312,7 @@ func resolvePath(p, baseDir string) (string, error) {
 }
 
 // Example is the config written by `drill init`.
-const Example = `# drill configuration. Docs: https://github.com/enzog/drill
+const Example = `# drill configuration. Docs: https://github.com/enzo-gsi/drill
 targets:
   - name: vaultwarden
     backend: restic

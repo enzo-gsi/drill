@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/enzog/drill/internal/backend"
-	"github.com/enzog/drill/internal/backend/restic"
-	"github.com/enzog/drill/internal/checks"
-	"github.com/enzog/drill/internal/config"
-	"github.com/enzog/drill/internal/report"
+	"github.com/enzo-gsi/drill/internal/backend"
+	"github.com/enzo-gsi/drill/internal/backend/restic"
+	"github.com/enzo-gsi/drill/internal/checks"
+	"github.com/enzo-gsi/drill/internal/config"
+	"github.com/enzo-gsi/drill/internal/report"
 )
 
 type fakeBackend struct {

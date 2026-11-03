@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/enzog/drill/internal/backend"
-	"github.com/enzog/drill/internal/testutil"
+	"github.com/enzo-gsi/drill/internal/backend"
+	"github.com/enzo-gsi/drill/internal/testutil"
 )
 
 func TestParseSnapshots(t *testing.T) {

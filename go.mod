@@ -1,4 +1,4 @@
-module github.com/enzog/drill
+module github.com/enzo-gsi/drill
 
 go 1.26.0
 

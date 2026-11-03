@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/enzog/drill/internal/config"
+	"github.com/enzo-gsi/drill/internal/config"
 
 	_ "modernc.org/sqlite" // pure Go SQLite driver, registered as "sqlite"
 )

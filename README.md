@@ -9,7 +9,7 @@ drill restores the latest [restic](https://restic.net) snapshot into a temp dir,
 ## Install
 
 ```bash
-go install github.com/enzog/drill/cmd/drill@latest
+go install github.com/enzo-gsi/drill/cmd/drill@latest
 ```
 
 Requires Go 1.26+ to build and restic 0.17+ on `PATH`.

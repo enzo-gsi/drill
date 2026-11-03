@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/enzog/drill/internal/checks"
-	"github.com/enzog/drill/internal/report"
+	"github.com/enzo-gsi/drill/internal/checks"
+	"github.com/enzo-gsi/drill/internal/report"
 )
 
 func TestPathFor(t *testing.T) {

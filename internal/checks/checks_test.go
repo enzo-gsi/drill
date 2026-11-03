@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/enzog/drill/internal/config"
-	"github.com/enzog/drill/internal/testutil"
+	"github.com/enzo-gsi/drill/internal/config"
+	"github.com/enzo-gsi/drill/internal/testutil"
 )
 
 func expect(t *testing.T, r Result, status Status, msgPart string) {
