@@ -1,6 +1,6 @@
 module github.com/enzog/drill
 
-go 1.27.3
+go 1.26.0
 
 require (
 	gopkg.in/yaml.v3 v3.0.1

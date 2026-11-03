@@ -113,7 +113,13 @@ func SQLiteIntegrity(ctx context.Context, root, rel string) Result {
 		if err := rows.Scan(&s); err != nil {
 			return failf("%s is corrupt: %v", rel, cleanSQLiteErr(err))
 		}
-		lines = append(lines, s)
+		// One row can hold several newline-separated problems.
+		for _, line := range strings.Split(s, "\n") {
+			line = strings.TrimSpace(line)
+			if line != "" && !strings.HasPrefix(line, "***") {
+				lines = append(lines, line)
+			}
+		}
 	}
 	if err := rows.Err(); err != nil {
 		return failf("%s is corrupt: %v", rel, cleanSQLiteErr(err))
@@ -122,7 +128,7 @@ func SQLiteIntegrity(ctx context.Context, root, rel string) Result {
 		return passf("%s integrity_check ok", rel)
 	}
 	if len(lines) > 3 {
-		lines = append(lines[:3], fmt.Sprintf("and %d more", len(lines)-3))
+		lines = append(lines[:3], fmt.Sprintf("and %d more problems", len(lines)-3))
 	}
 	return failf("%s failed integrity_check: %s", rel, strings.Join(lines, "; "))
 }

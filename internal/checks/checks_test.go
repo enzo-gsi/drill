@@ -48,6 +48,9 @@ func TestSQLiteIntegrity(t *testing.T) {
 	if r.Status != Fail || !strings.Contains(r.Message, "data/db.sqlite3") {
 		t.Errorf("corrupt db: got %s %q", r.Status, r.Message)
 	}
+	if strings.Contains(r.Message, "\n") || strings.Contains(r.Message, "***") || strings.Count(r.Message, ";") > 3 {
+		t.Errorf("corrupt db message should be one short line: %q", r.Message)
+	}
 
 	testutil.WriteFiles(t, root, map[string]string{"notdb.sqlite3": strings.Repeat("not a database ", 100)})
 	expect(t, SQLiteIntegrity(ctx, root, "notdb.sqlite3"), Fail, "notdb.sqlite3")
